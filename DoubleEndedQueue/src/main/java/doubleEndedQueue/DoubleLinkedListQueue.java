@@ -12,8 +12,18 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
 
     @Override
     public void append(DequeNode node) {
-        DequeNode nuevo = new DequeNode(node.getItem(), null, last);
-        this.last = nuevo;
+
+        if(first==null && last==null){
+
+            if(!(node.isLastNode() && node.isFirstNode())){
+                throw new RuntimeException("ERROR: Given node is not valid");
+            }
+            first=node;
+            last = node;
+        }else{
+            DequeNode nuevo = new DequeNode(node.getItem(), null, last);
+            this.last = nuevo;
+        }
     }
 
     @Override
