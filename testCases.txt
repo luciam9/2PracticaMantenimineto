@@ -1,3 +1,13 @@
 Pruebas clase DequeNode:
 
+shouldGetTypeReturnNextItem
+shouldGetTypeReturnPreviousItem
+
+shouldGetTypeReturnFirstNode
+shouldGetTypeReturnLastNode
+shouldGetTypeReturnNotATerminalNode
+
+shouldGetTypeThrowAnExceptionIfThereIsNoNextNode
+shouldGetTypeThrowAnExceptionIfThereIsNoPreviousNode
+
 Pruebas clase DoubleEndedQueue:
