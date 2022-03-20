@@ -112,4 +112,20 @@ class DoubleEndedQueueTest {
 
         assertEquals(2, queue.size());
     }
+
+    @Test
+    public void findItemInAQueueWhenItemIsContainedReturnsTheNode(){
+        assertEquals(2,queue.find(2).getItem());
+    }
+
+    @Test
+    public void findItemInAQueueWhenItemIsNotContainedReturnsNull(){
+        assertNull(queue.find(3));
+    }
+
+    @Test
+    public void findItemInAEmptyQueueReturnsNull(){
+        assertNull(emptyQueue.find(3));
+    }
+
 }

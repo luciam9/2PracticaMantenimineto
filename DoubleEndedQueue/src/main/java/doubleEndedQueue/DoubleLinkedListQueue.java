@@ -92,4 +92,31 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
         return size;
         }
     }
+
+    private boolean isEmpty(){
+        return first==null && last==null;
+    }
+
+    @Override
+    public DequeNode find(Object item) {
+        if(isEmpty()){
+            return null;
+        } else {
+            DequeNode actual = this.first;
+            while (actual!=null){
+
+                if(actual.getItem().equals(item)){
+                    return actual;
+                }else{
+                    actual=actual.getNext();
+                }
+            }
+
+
+        }
+        return null;
+
+    }
+
+
 }
