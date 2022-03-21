@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Deque;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleEndedQueueTest {
@@ -13,16 +15,10 @@ class DoubleEndedQueueTest {
 
     @BeforeEach
     public void setNode(){
-
-        /*DequeNode first = new DequeNode(1, null, null);
-        DequeNode node = new DequeNode(2, null, first);
-        first.setNext(node);
-        DequeNode last =  new DequeNode(3, null, node);
-        node.setNext(last);*/
-
         queue = new DoubleLinkedListQueue();
         queue.append(new DequeNode(1, null, null));
         queue.append(new DequeNode(2, null, null));
+        queue.append(new DequeNode(3, null, null));
 
         emptyQueue = new DoubleLinkedListQueue();
     }
@@ -110,7 +106,7 @@ class DoubleEndedQueueTest {
     @Test
     public void sizeNotEmptyQueueIsNumberOfElements(){
 
-        assertEquals(2, queue.size());
+        assertEquals(3, queue.size());
     }
 
     @Test
@@ -120,12 +116,64 @@ class DoubleEndedQueueTest {
 
     @Test
     public void findItemInAQueueWhenItemIsNotContainedReturnsNull(){
-        assertNull(queue.find(3));
+        assertNull(queue.find(4));
     }
 
     @Test
     public void findItemInAEmptyQueueReturnsNull(){
         assertNull(emptyQueue.find(3));
+    }
+
+    @Test
+    public void deletingFirstNodeMakesNextNodeFirst()
+    {
+        DequeNode first = queue.peekFirst();
+        DequeNode nextToFirst = queue.peekFirst().getNext();
+
+        queue.delete(first);
+
+        assertEquals(queue.peekFirst().getItem(), nextToFirst.getItem());
+    }
+
+    @Test
+    public void deletingLastNodeMakesPreviousNodeLast()
+    {
+        DequeNode last = queue.peekLast();
+        DequeNode previousToLast = queue.peekLast().getPrevious();
+
+        queue.delete(last);
+
+        assertEquals(queue.peekLast().getItem(), previousToLast.getItem());
+    }
+
+    @Test
+    public void deletingMiddleNodeJoinsPreviousAndNextNodes()
+    {
+        DequeNode actual = queue.find(2);
+        DequeNode previous = actual.getPrevious();
+        DequeNode next = actual.getNext();
+
+        queue.delete(actual);
+
+        assertEquals(previous.getNext().getItem(), next.getItem());
+    }
+
+    @Test
+    public void deletingMiddleNodeJoinsNextAndPreviousNodes()
+    {
+        DequeNode actual = queue.find(2);
+        DequeNode previous = actual.getPrevious();
+        DequeNode next = actual.getNext();
+
+        queue.delete(actual);
+
+        assertEquals(next.getPrevious().getItem(), previous.getItem());
+    }
+
+    @Test
+    public void deletingNonExistingNodeThrowsAnException()
+    {
+        assertThrows(RuntimeException.class, () -> queue.delete(new DequeNode(10, null, null)));
     }
 
 }
