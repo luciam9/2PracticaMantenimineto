@@ -19,4 +19,5 @@ public interface DoubleEndedQueue<T> {
     DequeNode<T> find (T item) ;
     void delete(DequeNode<T> node);
 
+    DequeNode<T> getAt(int position);
 }

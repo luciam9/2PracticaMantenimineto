@@ -3,6 +3,7 @@ package doubleEndedQueue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.engine.support.hierarchical.Node;
 
 import java.util.Deque;
 
@@ -159,6 +160,17 @@ class DoubleEndedQueueTest {
     }
 
     @Test
+    public void getAtPositionInNotEmptyQueueReturnsRightNode(){
+
+        DequeNode node = queue.peekFirst();
+
+        assertEquals(queue.peekFirst().getItem(), queue.getAt(0).getItem());
+    }
+
+    @Test
+    public void getAtPositionInEmptyQueueThrowsException(){
+        assertThrows(RuntimeException.class, () -> emptyQueue.getAt(0));
+    }
     public void deletingMiddleNodeJoinsNextAndPreviousNodes()
     {
         DequeNode actual = queue.find(2);
