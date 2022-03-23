@@ -3,6 +3,7 @@ package doubleEndedQueue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.engine.support.hierarchical.Node;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -111,5 +112,18 @@ class DoubleEndedQueueTest {
     public void sizeNotEmptyQueueIsNumberOfElements(){
 
         assertEquals(2, queue.size());
+    }
+
+    @Test
+    public void getAtPositionInNotEmptyQueueReturnsRightNode(){
+
+        DequeNode node = queue.peekFirst();
+
+        assertEquals(queue.peekFirst().getItem(), queue.getAt(0).getItem());
+    }
+
+    @Test
+    public void getAtPositionInEmptyQueueThrowsException(){
+        assertThrows(RuntimeException.class, () -> emptyQueue.getAt(0));
     }
 }

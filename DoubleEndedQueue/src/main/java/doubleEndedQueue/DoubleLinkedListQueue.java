@@ -92,4 +92,22 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
         return size;
         }
     }
+
+    @Override
+    public DequeNode getAt(int position){
+
+        if(position>=this.size()){
+            throw new RuntimeException("ERROR: Position not valid");
+        }else{
+            int cont = 0;
+            DequeNode actual = this.first;
+
+            while(cont!=position){
+                actual = actual.getNext();
+                cont++;
+            }
+
+            return actual;
+        }
+    }
 }
