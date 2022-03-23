@@ -110,4 +110,57 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
             return actual;
         }
     }
+    private boolean isEmpty(){
+        return first==null && last==null;
+    }
+
+    @Override
+    public DequeNode find(Object item) {
+        if(isEmpty()){
+            return null;
+        } else {
+            DequeNode actual = this.first;
+            while (actual!=null){
+
+                if(actual.getItem().equals(item)){
+                    return actual;
+                }else{
+                    actual=actual.getNext();
+                }
+            }
+
+
+        }
+        return null;
+
+    }
+
+    @Override
+    public void delete(DequeNode node) {
+        if(find(node.getItem())!=null)
+        {
+            DequeNode nodeFound = find(node.getItem());
+            if(nodeFound.isFirstNode())
+            {
+                first = nodeFound.getNext();
+                nodeFound.getNext().setPrevious(null);
+            }
+            else if(nodeFound.isLastNode())
+            {
+                last = nodeFound.getPrevious();
+                nodeFound.getPrevious().setNext(null);
+            }
+            else
+            {
+                nodeFound.getNext().setPrevious(nodeFound.getPrevious());
+                nodeFound.getPrevious().setNext(nodeFound.getNext());
+            }
+        }
+        else
+        {
+            throw new RuntimeException("ERROR: Node doesn't exist");
+        }
+    }
+
+
 }
