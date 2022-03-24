@@ -145,7 +145,10 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
         if(find(node.getItem())!=null)
         {
             DequeNode nodeFound = find(node.getItem());
-            if(nodeFound.isFirstNode())
+            if(nodeFound.isLastNode() && nodeFound.isFirstNode()){
+                this.first = null;
+                this.last = null;
+            }else if(nodeFound.isFirstNode())
             {
                 first = nodeFound.getNext();
                 nodeFound.getNext().setPrevious(null);
@@ -168,20 +171,18 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
     }
 
     private Object getMinimum(Comparator comparator){
-        if(isEmpty()){
-            return null;
-        }else{
-            DequeNode min = this.first;
 
-            for(int i = 1; i<size(); i++){
-                DequeNode actual = getAt(i);
-                if(comparator.compare(min.getItem(),actual.getItem())>0){
-                    min = actual;
-                }
+        DequeNode min = this.first;
+
+        for(int i = 1; i<size(); i++){
+            DequeNode actual = getAt(i);
+            if(comparator.compare(min.getItem(),actual.getItem())>0){
+                min = actual;
             }
-
-            return min.getItem();
         }
+
+        return min.getItem();
+
     }
 
     @Override

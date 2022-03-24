@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.engine.support.hierarchical.Node;
 
+import java.util.Comparator;
 import java.util.Deque;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +14,9 @@ class DoubleEndedQueueTest {
 
     private DoubleLinkedListQueue queue;
     private DoubleLinkedListQueue emptyQueue;
+    private DoubleLinkedListQueue unsortedIntegerQueue;
+
+
 
     @BeforeEach
     public void setNode(){
@@ -22,6 +26,16 @@ class DoubleEndedQueueTest {
         queue.append(new DequeNode(3, null, null));
 
         emptyQueue = new DoubleLinkedListQueue();
+
+
+        unsortedIntegerQueue = new DoubleLinkedListQueue();
+        unsortedIntegerQueue.append(new DequeNode<>(4,null,null));
+        unsortedIntegerQueue.append(new DequeNode<>(5,null,null));
+        unsortedIntegerQueue.append(new DequeNode<>(2,null,null));
+        unsortedIntegerQueue.append(new DequeNode<>(10,null,null));
+
+
+
     }
 
     @AfterEach
@@ -197,7 +211,45 @@ class DoubleEndedQueueTest {
     }
 
     @Test
-    public void sortFromSmallestToLargest(){
+    public void deleteWhenThereIsOneNodeInQueue(){
+        queue.delete(new DequeNode<>(2,null,null));
+        queue.delete(new DequeNode<>(3,null,null));
+        queue.delete(new DequeNode(1,null,null));
+        assertEquals(0, queue.size());
+
+    }
+
+    @Test
+    public void sortFromSmallestToLargestFromASortedQueue(){
+        Comparator<Integer> comp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        };
+
+        DoubleLinkedListQueue queueUnsorted = queue;
+        queue.sort(comp);
+
+        assertEquals(queueUnsorted, queue);
+
+
+    }
+
+    @Test
+    public void sortFromSmallestToLargestFromAUnsortedQueue(){
+        Comparator<Integer> comp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        };
+
+        DoubleLinkedListQueue queueUnsorted = unsortedIntegerQueue;
+        unsortedIntegerQueue.sort(comp);
+
+        assertEquals(queueUnsorted, unsortedIntegerQueue);
+
 
     }
 
