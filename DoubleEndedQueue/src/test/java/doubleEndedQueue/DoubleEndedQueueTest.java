@@ -168,6 +168,14 @@ class DoubleEndedQueueTest {
     }
 
     @Test
+    public void getAtPosition2InNotEmptyQueueReturnsRightNode(){
+
+        DequeNode node = queue.find(2);
+
+        assertEquals(node.getItem(), queue.getAt(1).getItem());
+    }
+
+    @Test
     public void getAtPositionInEmptyQueueThrowsException(){
         assertThrows(RuntimeException.class, () -> emptyQueue.getAt(0));
     }
