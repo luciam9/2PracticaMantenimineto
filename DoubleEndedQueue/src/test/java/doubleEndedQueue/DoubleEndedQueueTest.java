@@ -196,4 +196,9 @@ class DoubleEndedQueueTest {
         assertThrows(RuntimeException.class, () -> queue.delete(new DequeNode(10, null, null)));
     }
 
+    @Test
+    public void sortFromSmallestToLargest(){
+
+    }
+
 }

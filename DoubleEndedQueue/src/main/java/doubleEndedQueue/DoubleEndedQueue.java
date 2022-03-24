@@ -1,5 +1,6 @@
 package doubleEndedQueue;
 
+import java.util.Comparator;
 import java.util.Deque;
 
 public interface DoubleEndedQueue<T> {
@@ -18,6 +19,6 @@ public interface DoubleEndedQueue<T> {
     // sesión de laboratorio de esta práctica.)
     DequeNode<T> find (T item) ;
     void delete(DequeNode<T> node);
-
     DequeNode<T> getAt(int position);
+    void sort(Comparator<?> comparator);
 }

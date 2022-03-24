@@ -1,5 +1,7 @@
 package doubleEndedQueue;
 
+import java.util.Comparator;
+
 public class DoubleLinkedListQueue implements DoubleEndedQueue{
 
     private DequeNode first;
@@ -110,6 +112,9 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
             return actual;
         }
     }
+
+
+
     private boolean isEmpty(){
         return first==null && last==null;
     }
@@ -160,6 +165,39 @@ public class DoubleLinkedListQueue implements DoubleEndedQueue{
         {
             throw new RuntimeException("ERROR: Node doesn't exist");
         }
+    }
+
+    private Object getMinimum(Comparator comparator){
+        if(isEmpty()){
+            return null;
+        }else{
+            DequeNode min = this.first;
+
+            for(int i = 1; i<size(); i++){
+                DequeNode actual = getAt(i);
+                if(comparator.compare(min.getItem(),actual.getItem())>0){
+                    min = actual;
+                }
+            }
+
+            return min.getItem();
+        }
+    }
+
+    @Override
+    public void sort(Comparator comparator) {
+         DoubleLinkedListQueue auxiliar = new DoubleLinkedListQueue();
+         while(!this.isEmpty()){
+             Object minimum = getMinimum(comparator);
+             this.delete(new DequeNode(minimum,null,null));
+             auxiliar.append(new DequeNode<>(minimum,null,null));
+         }
+
+         while (!auxiliar.isEmpty()){
+             this.append(new DequeNode(auxiliar.getAt(0).getItem(),null,null));
+             auxiliar.delete(this.last);
+         }
+
     }
 
 
